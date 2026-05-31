@@ -1,0 +1,14 @@
+---
+title: "把简历做成可维护的发布系统"
+description: "一个简历优先、博客辅助、支持 Word 导入和 GitHub Pages 发布的个人站点方案。"
+pubDate: 2026-06-01
+lang: zh
+tags: ["resume", "automation", "github-pages"]
+featured: true
+---
+
+个人简历网站最容易变成一次性页面。真正有价值的方案，应该让内容更新和发布流程都足够低摩擦。
+
+这个站点把简历、项目、文章和联系方式放在同一套静态内容模型里。日常维护可以直接改 Markdown/MDX，也可以把 Word 文档放进 `imports/` 目录，由导入脚本提取正文和图片，再交给 GitHub Actions 构建发布。
+
+核心目标是让个人主页保持轻、快、可迁移，同时保留长期写作和作品沉淀的空间。

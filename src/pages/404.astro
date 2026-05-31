@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Not Found | PeterRia" description="The requested page was not found.">
+  <section class="page-hero compact">
+    <div class="page-hero-copy reveal">
+      <p class="eyebrow">404</p>
+      <h1 data-lang="zh">页面不存在</h1>
+      <h1 data-lang="en">Page not found</h1>
+      <p data-lang="zh">你可以回到首页或继续浏览博客。</p>
+      <p data-lang="en">You can return home or continue reading the blog.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="/" data-lang="zh">回到首页</a>
+        <a class="button primary" href="/" data-lang="en">Back home</a>
+        <a class="button secondary" href="/blog/">Blog</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

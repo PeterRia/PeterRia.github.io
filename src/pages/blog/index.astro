@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import { ArrowUpRight, Rss } from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags))).sort();
+---
+
+<BaseLayout title="Blog | PeterRia" description="Writing and notes from PeterRia.">
+  <section class="page-hero compact">
+    <div class="page-hero-copy reveal">
+      <p class="eyebrow" data-lang="zh">博客</p>
+      <p class="eyebrow" data-lang="en">Blog</p>
+      <h1 data-lang="zh">文章与项目笔记</h1>
+      <h1 data-lang="en">Writing and project notes</h1>
+      <p data-lang="zh">围绕简历、自动化、静态发布和个人知识沉淀的轻量文章。</p>
+      <p data-lang="en">Compact notes about resume systems, automation, static publishing, and durable knowledge work.</p>
+    </div>
+    <Rss class="page-hero-icon" size={72} />
+  </section>
+
+  <section class="section-band">
+    <div class="tag-filter reveal" aria-label="Blog tag filters">
+      <button class="chip active" type="button" data-filter-tag="all">
+        <span data-lang="zh">全部</span>
+        <span data-lang="en">All</span>
+      </button>
+      {tags.map((tag) => (
+        <button class="chip" type="button" data-filter-tag={tag}>{tag}</button>
+      ))}
+    </div>
+
+    <div class="post-list">
+      {posts.map((post, index) => (
+        <article
+          class="post-list-item reveal"
+          data-post-card
+          data-tags={post.data.tags.join(",")}
+          style={`--delay: ${index * 60}ms`}
+        >
+          <div>
+            <p class="post-meta">
+              <span>{post.data.pubDate.toLocaleDateString(post.data.lang === "zh" ? "zh-CN" : "en-US")}</span>
+              <span>{post.data.lang.toUpperCase()}</span>
+            </p>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            <div class="tag-row">
+              {post.data.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </div>
+          <a class="icon-button" href={`/blog/${post.slug}/`} aria-label={`Open ${post.data.title}`}>
+            <ArrowUpRight size={20} />
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

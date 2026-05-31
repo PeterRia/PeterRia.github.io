@@ -1,0 +1,26 @@
+---
+const items = [
+  { label: "Home", href: "/", keywords: "首页 home resume" },
+  { label: "Resume 中文", href: "/resume/zh/", keywords: "简历 中文 resume cv" },
+  { label: "Resume English", href: "/resume/en/", keywords: "english resume cv" },
+  { label: "Blog", href: "/blog/", keywords: "博客 writing articles posts" },
+  { label: "GitHub", href: "https://github.com/PeterRia", keywords: "github code repo" }
+];
+---
+
+<dialog class="command-menu" data-command-menu aria-label="Search site">
+  <div class="command-panel">
+    <label class="command-search">
+      <span data-lang="zh">查找</span>
+      <span data-lang="en">Search</span>
+      <input data-command-input type="search" autocomplete="off" />
+    </label>
+    <div class="command-results">
+      {items.map((item) => (
+        <a href={item.href} data-command-item data-keywords={item.keywords}>
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</dialog>

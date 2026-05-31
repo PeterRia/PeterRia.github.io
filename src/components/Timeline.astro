@@ -1,0 +1,36 @@
+---
+import { CalendarDays } from "@lucide/astro";
+import { timeline } from "@data/profile";
+---
+
+<section class="section-band timeline-band" aria-labelledby="timeline-title">
+  <div class="section-heading reveal">
+    <p class="eyebrow" data-lang="zh">经历</p>
+    <p class="eyebrow" data-lang="en">Experience</p>
+    <h2 id="timeline-title" data-lang="zh">以项目和结果组织履历</h2>
+    <h2 id="timeline-title-en" data-lang="en">A resume organized around outcomes</h2>
+  </div>
+
+  <div class="timeline-list">
+    {timeline.zh.map((item, index) => (
+      <article class="timeline-item reveal" style={`--delay: ${index * 80}ms`}>
+        <div class="timeline-date">
+          <CalendarDays size={18} />
+          <span>{item.period}</span>
+        </div>
+        <div class="timeline-content">
+          <p class="timeline-place" data-lang="zh">{item.place}</p>
+          <p class="timeline-place" data-lang="en">{timeline.en[index].place}</p>
+          <h3 data-lang="zh">{item.title}</h3>
+          <h3 data-lang="en">{timeline.en[index].title}</h3>
+          <ul data-lang="zh">
+            {item.details.map((detail) => <li>{detail}</li>)}
+          </ul>
+          <ul data-lang="en">
+            {timeline.en[index].details.map((detail) => <li>{detail}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

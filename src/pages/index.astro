@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import FeaturedWriting from "@components/FeaturedWriting.astro";
+import FocusAreas from "@components/FocusAreas.astro";
+import Hero from "@components/Hero.astro";
+import SkillMatrix from "@components/SkillMatrix.astro";
+import Timeline from "@components/Timeline.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { profile } from "@data/profile";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout title={`${profile.zh.name} | ${profile.zh.role}`} description={profile.zh.summary}>
+  <Hero />
+  <FocusAreas />
+  <Timeline />
+  <SkillMatrix />
+  <FeaturedWriting posts={posts} />
+</BaseLayout>

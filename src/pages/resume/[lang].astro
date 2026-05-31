@@ -1,0 +1,47 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { Download, Mail } from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { profile, type Language } from "@data/profile";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "zh" } }, { params: { lang: "en" } }];
+}
+
+const lang = Astro.params.lang as Language;
+const entries = (await getCollection("resume"))
+  .filter((entry) => entry.data.lang === lang && !entry.data.draft)
+  .sort((a, b) => {
+    const generatedScore = Number(b.slug.includes("generated")) - Number(a.slug.includes("generated"));
+    return generatedScore || b.data.updated.getTime() - a.data.updated.getTime();
+  });
+
+const resume = entries[0] as CollectionEntry<"resume">;
+const { Content } = await resume.render();
+const copy = profile[lang];
+---
+
+<BaseLayout title={`${copy.name} Resume`} description={copy.summary} lang={lang}>
+  <section class="page-hero compact resume-hero">
+    <div class="page-hero-copy reveal">
+      <p class="eyebrow">{copy.availability}</p>
+      <h1>{resume.data.title}</h1>
+      <p>{copy.summary}</p>
+      <div class="hero-actions">
+        <a class="button primary" href={`mailto:${copy.email}`}>
+          <Mail size={18} />
+          {copy.email}
+        </a>
+        <button class="button secondary" type="button" onclick="window.print()">
+          <Download size={18} />
+          <span data-lang="zh">打印 / 保存 PDF</span>
+          <span data-lang="en">Print / Save PDF</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <article class="resume-document reveal">
+    <Content />
+  </article>
+</BaseLayout>

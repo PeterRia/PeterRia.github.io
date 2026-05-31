@@ -1,0 +1,33 @@
+---
+import { skills } from "@data/profile";
+---
+
+<section class="section-band" aria-labelledby="skills-title">
+  <div class="section-heading reveal">
+    <p class="eyebrow" data-lang="zh">能力</p>
+    <p class="eyebrow" data-lang="en">Skills</p>
+    <h2 id="skills-title" data-lang="zh">能力矩阵</h2>
+    <h2 id="skills-title-en" data-lang="en">Capability matrix</h2>
+  </div>
+
+  <div class="skills-grid">
+    {skills.zh.map((group, groupIndex) => (
+      <article class="skill-panel reveal" style={`--delay: ${groupIndex * 90}ms`}>
+        <h3 data-lang="zh">{group.group}</h3>
+        <h3 data-lang="en">{skills.en[groupIndex].group}</h3>
+        <div class="skill-bars">
+          {group.items.map((item, itemIndex) => (
+            <div class="skill-row">
+              <div>
+                <span data-lang="zh">{item.name}</span>
+                <span data-lang="en">{skills.en[groupIndex].items[itemIndex].name}</span>
+                <small>{item.level}%</small>
+              </div>
+              <meter min="0" max="100" value={item.level}>{item.level}%</meter>
+            </div>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

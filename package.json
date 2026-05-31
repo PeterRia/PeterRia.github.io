@@ -1,0 +1,30 @@
+{
+  "name": "peterria.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro check && astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "import:docx": "node scripts/import-docx.mjs",
+    "import:docx:optional": "node scripts/import-docx.mjs --optional",
+    "validate:content": "node scripts/validate-content.mjs",
+    "assets:generate": "node scripts/generate-assets.mjs",
+    "check": "npm run import:docx:optional && npm run validate:content && npm run build"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/sitemap": "^3.5.1",
+    "astro": "^5.15.1",
+    "gray-matter": "^4.0.3",
+    "@lucide/astro": "^0.556.0",
+    "mammoth": "^1.10.0",
+    "sharp": "^0.34.2",
+    "turndown": "^7.2.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.2"
+  }
+}

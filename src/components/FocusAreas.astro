@@ -1,0 +1,24 @@
+---
+import { focusAreas } from "@data/profile";
+---
+
+<section class="section-band" aria-labelledby="focus-title">
+  <div class="section-heading reveal">
+    <p class="eyebrow" data-lang="zh">定位</p>
+    <p class="eyebrow" data-lang="en">Positioning</p>
+    <h2 id="focus-title" data-lang="zh">简历是入口，内容系统是底座</h2>
+    <h2 id="focus-title-en" data-lang="en">Resume as the front door, content as the engine</h2>
+  </div>
+
+  <div class="focus-grid">
+    {focusAreas.zh.map((area, index) => (
+      <article class={`focus-card accent-${area.accent} reveal`} style={`--delay: ${index * 90}ms`}>
+        <span class="card-index">0{index + 1}</span>
+        <h3 data-lang="zh">{area.title}</h3>
+        <h3 data-lang="en">{focusAreas.en[index].title}</h3>
+        <p data-lang="zh">{area.description}</p>
+        <p data-lang="en">{focusAreas.en[index].description}</p>
+      </article>
+    ))}
+  </div>
+</section>

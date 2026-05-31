@@ -1,0 +1,58 @@
+---
+import Header from "@components/Header.astro";
+import CommandMenu from "@components/CommandMenu.astro";
+import { profile, type Language } from "@data/profile";
+import siteScript from "../scripts/site.js?url";
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Language;
+  image?: string;
+}
+
+const {
+  title,
+  description = profile.zh.summary,
+  lang = "zh",
+  image = "/assets/profile-visual.png"
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://peterria.github.io");
+---
+
+<!doctype html>
+<html lang={lang} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, canonical).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+      document.documentElement.dataset.lang = localStorage.getItem("lang") || "zh";
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" data-scroll-progress></div>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <CommandMenu />
+    <script is:inline type="module" src={siteScript}></script>
+  </body>
+</html>

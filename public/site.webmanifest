@@ -1,0 +1,15 @@
+{
+  "name": "PeterRia Resume Blog",
+  "short_name": "PeterRia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f7f3",
+  "theme_color": "#151b18",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

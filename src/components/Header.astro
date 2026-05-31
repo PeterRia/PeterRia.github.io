@@ -1,0 +1,42 @@
+---
+import { CodeXml, Languages, Moon, Search, Sun } from "@lucide/astro";
+import { navItems, profile } from "@data/profile";
+---
+
+<header class="site-header">
+  <nav class="nav-shell" aria-label="Primary navigation">
+    <a class="brand" href="/" aria-label="PeterRia home">
+      <span class="brand-mark" aria-hidden="true">RP</span>
+      <span class="brand-copy">
+        <span>PeterRia</span>
+        <small data-lang="zh">简历与博客</small>
+        <small data-lang="en">Resume & Blog</small>
+      </span>
+    </a>
+
+    <div class="nav-links" aria-label="Main pages">
+      {navItems.zh.map((item, index) => (
+        <>
+          <a href={item.href} data-lang="zh">{item.label}</a>
+          <a href={navItems.en[index].href} data-lang="en">{navItems.en[index].label}</a>
+        </>
+      ))}
+    </div>
+
+    <div class="nav-actions">
+      <a class="icon-button" href={profile.zh.github} aria-label="GitHub profile" rel="noreferrer">
+        <CodeXml size={19} />
+      </a>
+      <button class="icon-button" type="button" data-command-open aria-label="Search">
+        <Search size={19} />
+      </button>
+      <button class="icon-button" type="button" data-lang-toggle aria-label="Switch language">
+        <Languages size={19} />
+      </button>
+      <button class="icon-button" type="button" data-theme-toggle aria-label="Switch theme">
+        <Sun class="theme-icon theme-icon-sun" size={19} />
+        <Moon class="theme-icon theme-icon-moon" size={19} />
+      </button>
+    </div>
+  </nav>
+</header>

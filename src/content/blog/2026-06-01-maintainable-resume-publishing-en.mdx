@@ -1,0 +1,14 @@
+---
+title: "Turning a resume into a maintainable publishing system"
+description: "A resume-first personal site with Word import, lightweight writing, and GitHub Pages deployment."
+pubDate: 2026-06-01
+lang: en
+tags: ["resume", "automation", "github-pages"]
+featured: true
+---
+
+A personal resume site should not become a one-off page. The useful version keeps both content updates and publishing low-friction.
+
+This site keeps resume sections, projects, writing, and contact paths in one static content model. You can edit Markdown/MDX directly, or place Word documents under `imports/` and let the import script extract text and images before GitHub Actions builds the site.
+
+The goal is a homepage that stays fast, portable, and easy to keep alive.

@@ -1,0 +1,52 @@
+---
+import { ArrowUpRight, FileText, Mail } from "@lucide/astro";
+import { metrics, profile } from "@data/profile";
+---
+
+<section class="hero-section">
+  <div class="hero-grid">
+    <div class="hero-copy reveal">
+      <p class="eyebrow" data-lang="zh">{profile.zh.availability}</p>
+      <p class="eyebrow" data-lang="en">{profile.en.availability}</p>
+      <h1>
+        <span>{profile.zh.name}</span>
+        <strong data-lang="zh">{profile.zh.role}</strong>
+        <strong data-lang="en">{profile.en.role}</strong>
+      </h1>
+      <p class="hero-summary" data-lang="zh">{profile.zh.summary}</p>
+      <p class="hero-summary" data-lang="en">{profile.en.summary}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="/resume/zh/" data-lang="zh">
+          <FileText size={18} />
+          {profile.zh.resumeLabel}
+        </a>
+        <a class="button primary" href="/resume/en/" data-lang="en">
+          <FileText size={18} />
+          {profile.en.resumeLabel}
+        </a>
+        <a class="button secondary" href="/blog/">
+          <ArrowUpRight size={18} />
+          <span data-lang="zh">{profile.zh.blogLabel}</span>
+          <span data-lang="en">{profile.en.blogLabel}</span>
+        </a>
+        <button class="button ghost" type="button" data-copy-email={profile.zh.email}>
+          <Mail size={18} />
+          <span>{profile.zh.email}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" style="--delay: 100ms">
+      <img src="/assets/profile-visual.png" alt="Modern desk with resume sheets and laptop" width="1600" height="1000" loading="eager" />
+      <div class="hero-stats" aria-label="Profile metrics">
+        {metrics.zh.map((metric, index) => (
+          <div>
+            <strong>{metric.value}</strong>
+            <span data-lang="zh">{metric.label}</span>
+            <span data-lang="en">{metrics.en[index].label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
