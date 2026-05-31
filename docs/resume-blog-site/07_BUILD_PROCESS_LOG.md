@@ -129,6 +129,8 @@ npm run dev -- --port 4321
 - 首次远端提交：`7d90c59 Initial resume blog site`。
 - 后续兼容性提交：`bcbd3cb Opt into Node 24 actions runtime`。
 - 第二次 Actions 部署成功：build job 和 deploy job 均通过。
+- 发现 GitHub Pages 同时保留 legacy 分支构建，会触发额外的 `pages-build-deployment` 动态运行；随后通过 GitHub Pages API 将 `build_type` 更新为 `workflow`。
+- Pages API 最终状态：`status: built`、`build_type: workflow`、`https_enforced: true`。
 - 线上首页验证：`https://peterria.github.io/` 返回 HTTP 200，标题为 `PeterRia | 个人简历与技术博客`。
 - 线上中文简历验证：`https://peterria.github.io/resume/zh/` 返回 HTTP 200，页面包含 `PeterRia 简历`。
 - 当前内容是可发布模板和自动化系统，真实履历需要用户提供 Word 或直接编辑 `src/data/profile.ts`、`src/content/resume/`。

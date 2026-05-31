@@ -22,6 +22,7 @@
 - 已创建远端仓库：`https://github.com/PeterRia/PeterRia.github.io`。
 - 已推送 `main`，本地分支跟踪 `origin/main`。
 - GitHub Actions `Deploy GitHub Pages` 已成功完成。
+- GitHub Pages 已配置为 `build_type: workflow`，避免 legacy 分支构建和 Actions 部署重复触发。
 - 线上首页验证：`https://peterria.github.io/` 返回 HTTP 200，标题为 `PeterRia | 个人简历与技术博客`。
 - 线上中文简历验证：`https://peterria.github.io/resume/zh/` 返回 HTTP 200，包含 `PeterRia 简历`。
 
