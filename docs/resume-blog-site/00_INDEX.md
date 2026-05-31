@@ -17,9 +17,13 @@
 - 已启动本地开发服务并验证 `http://127.0.0.1:4321/` 返回 200。
 - 已用浏览器检查移动宽度：无横向溢出，语言切换、主题切换、搜索弹层、搜索过滤、博客列表、简历页可用。
 - 已安装 GitHub CLI：`C:\Program Files\GitHub CLI\gh.exe`，版本 `2.93.0`。
-- GitHub CLI 当前未登录；远端仓库创建/推送需要完成 `gh auth login` 或提供可用 token。
+- GitHub CLI 已登录账号：`PeterRia`。
 - GitHub 登录账号为 `PeterRia`，因此用户站点仓库应为 `PeterRia/PeterRia.github.io`。
-- 当前 Git 仓库已有本地提交；`git remote -v` 当前为空。
+- 已创建远端仓库：`https://github.com/PeterRia/PeterRia.github.io`。
+- 已推送 `main`，本地分支跟踪 `origin/main`。
+- GitHub Actions `Deploy GitHub Pages` 已成功完成。
+- 线上首页验证：`https://peterria.github.io/` 返回 HTTP 200，标题为 `PeterRia | 个人简历与技术博客`。
+- 线上中文简历验证：`https://peterria.github.io/resume/zh/` 返回 HTTP 200，包含 `PeterRia 简历`。
 
 ## 文档清单
 

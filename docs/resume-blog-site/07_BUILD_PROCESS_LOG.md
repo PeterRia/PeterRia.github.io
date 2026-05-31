@@ -119,12 +119,16 @@ npm run dev -- --port 4321
 问题：`.docx` 如果被 `.gitignore` 忽略，GitHub Actions 无法自动导入。  
 修复：允许 `imports/` 下 `.docx` 被提交，只忽略临时文件。
 
-## 尚未完成或受限事项
+## 后续维护事项
 
 - 已安装 GitHub CLI：`C:\Program Files\GitHub CLI\gh.exe`，版本 `2.93.0`。
-- `gh auth status` 显示当前未登录任何 GitHub host。
+- `gh auth status` 显示已登录 `github.com` 账号 `PeterRia`。
 - GitHub 登录账号为 `PeterRia`，目标仓库改为 `PeterRia/PeterRia.github.io`。
-- 远端仓库尚未创建。
-- `git remote -v` 当前为空。
-- 需要创建 `PeterRia/PeterRia.github.io`，或在网页创建后添加 remote。
+- 已创建远端仓库：`https://github.com/PeterRia/PeterRia.github.io`。
+- 已推送 `main`，本地分支跟踪 `origin/main`。
+- 首次远端提交：`7d90c59 Initial resume blog site`。
+- 后续兼容性提交：`bcbd3cb Opt into Node 24 actions runtime`。
+- 第二次 Actions 部署成功：build job 和 deploy job 均通过。
+- 线上首页验证：`https://peterria.github.io/` 返回 HTTP 200，标题为 `PeterRia | 个人简历与技术博客`。
+- 线上中文简历验证：`https://peterria.github.io/resume/zh/` 返回 HTTP 200，页面包含 `PeterRia 简历`。
 - 当前内容是可发布模板和自动化系统，真实履历需要用户提供 Word 或直接编辑 `src/data/profile.ts`、`src/content/resume/`。

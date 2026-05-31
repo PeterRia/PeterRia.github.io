@@ -9,7 +9,7 @@
 ## 可选环境
 
 - uv：用于运行 `project-doc-packager` 证据采集脚本；本机实测 `0.11.6`
-- GitHub CLI：已安装，路径 `C:\Program Files\GitHub CLI\gh.exe`，但当前未登录
+- GitHub CLI：已安装，路径 `C:\Program Files\GitHub CLI\gh.exe`，当前已登录 `PeterRia`
 
 ## npm 脚本
 
