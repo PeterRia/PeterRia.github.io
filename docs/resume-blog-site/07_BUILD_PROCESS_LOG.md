@@ -99,6 +99,8 @@ npm run dev -- --port 4321
 - 博客页识别 2 篇文章和 4 个筛选按钮。
 - 中文简历页可打开，标题为 `PeterRia 简历`，正文有 3 个二级标题。
 - 页面控制台无站点错误。
+- 首次远端 Actions 部署成功：build job 和 deploy job 均通过。
+- GitHub Actions 提示 Node.js 20 action runtime 将在 2026-06-16 默认切到 Node 24，因此 workflow 已加入 `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` 主动适配。
 
 ## 遇到并修复的问题
 
