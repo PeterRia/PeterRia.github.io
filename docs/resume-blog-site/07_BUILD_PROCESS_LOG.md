@@ -134,3 +134,69 @@ npm run dev -- --port 4321
 - 线上首页验证：`https://peterria.github.io/` 返回 HTTP 200，标题为 `PeterRia | 个人简历与技术博客`。
 - 线上中文简历验证：`https://peterria.github.io/resume/zh/` 返回 HTTP 200，页面包含 `PeterRia 简历`。
 - 当前内容是可发布模板和自动化系统，真实履历需要用户提供 Word 或直接编辑 `src/data/profile.ts`、`src/content/resume/`。
+
+## 2026-06-08 Open Design 视觉改造追加记录
+
+用户要求使用本机 Open Design 路径下图中标识的“Open Design 落地页”插件，一比一复刻 Atelier Zero / editorial collage 视觉语言，并明确禁用 `ui-ux-pro-max`。
+
+已定位官方示例目录：
+
+```text
+E:\00000AAAAA\000AAACodexW\Stock\Open Design\resources\open-design\plugins\_official\examples\open-design-landing
+```
+
+已读取：
+
+- `SKILL.md`
+- `open-design.json`
+- `example.html`
+- `assets/image-manifest.json`
+- `assets/imagegen-prompts.md`
+
+已复制 16 张 Open Design 拼贴图和 manifest 到：
+
+```text
+public/assets/open-design/
+```
+
+已修改：
+
+- `src/pages/index.astro`
+- `src/components/Header.astro`
+- `src/layouts/BaseLayout.astro`
+- `src/styles/global.css`
+- `src/scripts/site.js`
+
+主要效果：
+
+- 首页变为 Open Design 风格单页 editorial landing。
+- 全站采用 warm paper、coral、hairline、Playfair italic emphasis、Inter Tight、side rail、sticky nav。
+- 简历仍为主叙事，博客为辅助 archive。
+- 保留 Word 导入、MDX 内容、GitHub Actions 发布流程。
+
+验证：
+
+```powershell
+npm run check
+```
+
+结果：
+
+- `import:docx:optional`：无 Word 文件并正常继续。
+- `validate:content`：校验 4 个内容文件。
+- `astro check`：0 errors、0 warnings、0 hints。
+- `astro build`：生成 7 个静态页面。
+
+本地浏览器验证：
+
+- `/` 首页：16 个 Open Design 图片 slot 全部加载成功。
+- `/`、`/resume/zh/`、`/blog/` 在 1280、880、560 三个宽度下无横向溢出。
+- topbar 和 sticky nav 存在。
+- 搜索菜单可打开。
+- 语言切换可在 `zh` 与 `en` 之间切换，最终恢复 `zh`。
+
+更完整记录见：
+
+```text
+docs/resume-blog-site/08_OPEN_DESIGN_RESTYLE.md
+```

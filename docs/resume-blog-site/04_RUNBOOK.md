@@ -40,6 +40,13 @@ npm run preview
 Invoke-WebRequest http://127.0.0.1:4321/ -UseBasicParsing
 ```
 
+如果 `4321` 有旧进程或请求超时，可临时指定端口：
+
+```powershell
+npm run dev -- --port 4322
+Invoke-WebRequest http://127.0.0.1:4322/ -UseBasicParsing
+```
+
 生产构建文件：
 
 ```powershell
@@ -58,6 +65,20 @@ Test-Path dist/resume/en/index.html
 5. 提交并推送到 `main`。
 6. 在 GitHub Actions 查看 Pages 部署结果。
 
+## Open Design 改造后的视觉检查
+
+视觉或样式更新后，至少检查：
+
+- `/` 首页是否显示 topbar、sticky nav、hero collage、8 个编号章节。
+- `/` 首页是否加载 16 张 `public/assets/open-design/` 图片。
+- `/resume/zh/` 是否仍可打开并可打印。
+- `/blog/` 是否仍可筛选文章。
+- 1280、880、560 宽度下是否无横向滚动。
+- 搜索菜单是否能打开。
+- 语言按钮是否能在 `zh` 和 `en` 之间切换。
+
+本次 2026-06-08 实测：上述项目均通过。
+
 ## 备份
 
 必须备份：
@@ -66,6 +87,7 @@ Test-Path dist/resume/en/index.html
 - `src/content/`
 - `imports/`
 - `public/generated-assets/`
+- `public/assets/open-design/`
 - `.github/workflows/deploy.yml`
 - `docs/resume-blog-site/`
 
@@ -91,4 +113,3 @@ git log --oneline -10
 ## 资源占用
 
 站点是静态输出，部署后不需要服务端进程。构建阶段主要占用 Node/npm 依赖安装和 Astro 构建时间。
-

@@ -1,42 +1,71 @@
 ---
-import { CodeXml, Languages, Moon, Search, Sun } from "@lucide/astro";
-import { navItems, profile } from "@data/profile";
+import { Languages, Search } from "@lucide/astro";
+import { profile } from "@data/profile";
+
+const navLinks = [
+  { label: "Resume", href: "/resume/zh/", num: "01" },
+  { label: "Capabilities", href: "/#capabilities", num: "04" },
+  { label: "Labs", href: "/#labs", num: "05" },
+  { label: "Writing", href: "/blog/", num: "02" },
+  { label: "Contact", href: "/#contact" }
+];
 ---
 
-<header class="site-header">
-  <nav class="nav-shell" aria-label="Primary navigation">
-    <a class="brand" href="/" aria-label="PeterRia home">
-      <span class="brand-mark" aria-hidden="true">RP</span>
-      <span class="brand-copy">
-        <span>PeterRia</span>
-        <small data-lang="zh">简历与博客</small>
-        <small data-lang="en">Resume & Blog</small>
-      </span>
+<div class="topbar" data-od-id="topbar">
+  <div class="container topbar-inner">
+    <span><b>PR / 2026</b> · Vol. 01 / Resume Nº 01</span>
+    <span class="mid">
+      <span>Filed under <b class="coral">Resume · Automation</b></span>
+      <span>Astro · MDX · GitHub Pages</span>
+    </span>
+    <span class="right">
+      <a class="topbar-link" href="https://peterria.github.io/">
+        <span class="pulse"></span>Live · username.github.io
+      </a>
+      <button class="topbar-button" type="button" data-lang-toggle aria-label="Switch language">
+        <Languages size={13} />
+        <span><b>中文</b> · EN</span>
+      </button>
+    </span>
+  </div>
+</div>
+
+<header class="nav" data-od-id="nav">
+  <div class="container nav-inner">
+    <a href="/#top" class="brand" aria-label="PeterRia home">
+      <span class="brand-mark">P</span>
+      <span>PeterRia</span>
+      <span class="brand-meta"><b>Resume Nº 01</b>China / Remote / Open</span>
     </a>
 
-    <div class="nav-links" aria-label="Main pages">
-      {navItems.zh.map((item, index) => (
-        <>
-          <a href={item.href} data-lang="zh">{item.label}</a>
-          <a href={navItems.en[index].href} data-lang="en">{navItems.en[index].label}</a>
-        </>
-      ))}
-    </div>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-links">
+        {navLinks.map((item) => (
+          <li>
+            <a href={item.href}>
+              {item.label}
+              {item.num && <span class="num">{item.num}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
 
-    <div class="nav-actions">
-      <a class="icon-button" href={profile.zh.github} aria-label="GitHub profile" rel="noreferrer">
-        <CodeXml size={19} />
+    <div class="nav-side">
+      <button class="nav-cta ghost" type="button" data-command-open aria-label="Search">
+        <Search size={13} />
+        Search
+      </button>
+      <a
+        class="nav-cta"
+        href={profile.zh.github}
+        data-github-stars
+        data-github-repo="PeterRia/PeterRia.github.io"
+        aria-label="Open GitHub repository"
+      >
+        Star · 0
       </a>
-      <button class="icon-button" type="button" data-command-open aria-label="Search">
-        <Search size={19} />
-      </button>
-      <button class="icon-button" type="button" data-lang-toggle aria-label="Switch language">
-        <Languages size={19} />
-      </button>
-      <button class="icon-button" type="button" data-theme-toggle aria-label="Switch theme">
-        <Sun class="theme-icon theme-icon-sun" size={19} />
-        <Moon class="theme-icon theme-icon-moon" size={19} />
-      </button>
+      <span class="status-dot" aria-hidden="true"></span>
     </div>
-  </nav>
+  </div>
 </header>

@@ -16,14 +16,14 @@ const {
   title,
   description = profile.zh.summary,
   lang = "zh",
-  image = "/assets/profile-visual.png"
+  image = "/assets/open-design/hero.png"
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://peterria.github.io");
 ---
 
 <!doctype html>
-<html lang={lang} data-theme="light">
+<html lang={lang} data-lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,25 +33,85 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://peterria.gi
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, canonical).toString()} />
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
-      const savedTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
-      document.documentElement.dataset.lang = localStorage.getItem("lang") || "zh";
+      document.documentElement.dataset.lang = localStorage.getItem("lang") || document.documentElement.lang || "zh";
     </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="scroll-progress" data-scroll-progress></div>
-    <Header />
-    <main id="main">
-      <slot />
-    </main>
+    <div class="side-rail right" aria-hidden="true">
+      <span class="rail-text">PeterRia — Vol. 01 · Resume Nº 01 · GitHub Pages</span>
+    </div>
+    <div class="side-rail left" aria-hidden="true">
+      <span class="rail-text">Resume · Blog · Word Import · Actions · Docs</span>
+    </div>
+    <div class="shell">
+      <Header />
+      <main id="main">
+        <slot />
+      </main>
+      <footer data-od-id="footer">
+        <div class="container">
+          <div class="foot-grid">
+            <div class="foot-brand">
+              <a href="/#top" class="brand">
+                <span class="brand-mark">P</span>
+                <span>PeterRia</span>
+              </a>
+              <p>{profile.zh.summary}</p>
+              <a class="foot-cta" href="/resume/zh/">Open resume<span class="meta">ZH · EN</span></a>
+            </div>
+            <div class="foot-col">
+              <h5>Profile</h5>
+              <ul>
+                <li><a href="/resume/zh/">中文简历</a></li>
+                <li><a href="/resume/en/">English Resume</a></li>
+                <li><a href="/#capabilities">Capabilities</a></li>
+              </ul>
+            </div>
+            <div class="foot-col">
+              <h5>Archive</h5>
+              <ul>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/#labs">Labs</a></li>
+                <li><a href="/#method">Method</a></li>
+              </ul>
+            </div>
+            <div class="foot-col">
+              <h5>Connect</h5>
+              <ul>
+                <li><a href={profile.zh.github}>GitHub</a></li>
+                <li><a href={`mailto:${profile.zh.email}`}>Email</a></li>
+                <li><a href="/#contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="foot-bottom">
+            <span><span class="pulse"></span>● <b>PeterRia</b> · Astro · GitHub Pages · 2026 / Vol. 01</span>
+            <span class="right">
+              <span>{profile.zh.location}</span>
+              <span>Resume-first personal site</span>
+              <span class="coral-text">MMXXVI</span>
+            </span>
+          </div>
+          <div class="foot-mega">
+            <div class="word" data-reveal="rise-lg">Peter<em>Ria</em>.</div>
+          </div>
+        </div>
+      </footer>
+    </div>
     <CommandMenu />
     <script is:inline type="module" src={siteScript}></script>
   </body>

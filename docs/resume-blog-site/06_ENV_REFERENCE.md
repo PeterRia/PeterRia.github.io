@@ -31,6 +31,38 @@
 - GitHub：代码仓库与 Actions。
 - GitHub Pages：静态站点托管。
 
+## Open Design 本机来源
+
+本次视觉改造使用的 Open Design 安装目录：
+
+```text
+E:\00000AAAAA\000AAACodexW\Stock\Open Design
+```
+
+官方示例插件目录：
+
+```text
+E:\00000AAAAA\000AAACodexW\Stock\Open Design\resources\open-design\plugins\_official\examples\open-design-landing
+```
+
+已读取的关键文件：
+
+```text
+open-design.json
+SKILL.md
+example.html
+assets/image-manifest.json
+assets/imagegen-prompts.md
+```
+
+已复制到项目的资产目录：
+
+```text
+public/assets/open-design/
+```
+
+说明：本次明确未使用 `ui-ux-pro-max`。
+
 ## 环境变量
 
 当前项目不需要 `.env` 或运行时环境变量。
@@ -44,6 +76,12 @@ Astro 默认开发端口通常是：
 ```
 
 如果端口占用，Astro 会选择其他端口。以终端输出为准。
+
+本次 Open Design 改造验证时，`4321` 曾出现旧进程或请求超时干扰，因此使用过：
+
+```text
+4322
+```
 
 ## 站点配置
 

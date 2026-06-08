@@ -4,6 +4,7 @@
 目标远端：`PeterRia/PeterRia.github.io`  
 目标站点：`https://peterria.github.io/`  
 文档生成日期：2026-06-01  
+最近更新：2026-06-08
 文档模式：`project-doc-packager` full package
 
 ## 当前状态摘要
@@ -13,6 +14,9 @@
 - 已实现 Word 导入脚本：`scripts/import-docx.mjs`。
 - 已配置 GitHub Pages 发布 workflow：`.github/workflows/deploy.yml`。
 - 已生成本地主视觉资源：`public/assets/profile-visual.png`、`public/assets/og-cover.png`。
+- 已按 Open Design 官方 `open-design-landing` 示例完成 Atelier Zero editorial collage 视觉改造。
+- Open Design 资产已复制到 `public/assets/open-design/`，首页使用 16 个拼贴图位。
+- 本次明确未使用 `ui-ux-pro-max`。
 - 已执行 `npm run check`，导入、内容校验和构建通过；当时构建生成 7 个静态页面。
 - 已启动本地开发服务并验证 `http://127.0.0.1:4321/` 返回 200。
 - 已用浏览器检查移动宽度：无横向溢出，语言切换、主题切换、搜索弹层、搜索过滤、博客列表、简历页可用。
@@ -35,6 +39,7 @@
 - [05_TROUBLESHOOTING.md](05_TROUBLESHOOTING.md)：已知问题和诊断命令。
 - [06_ENV_REFERENCE.md](06_ENV_REFERENCE.md)：环境、依赖、端口和配置说明。
 - [07_BUILD_PROCESS_LOG.md](07_BUILD_PROCESS_LOG.md)：本次制作全过程记录。
+- [08_OPEN_DESIGN_RESTYLE.md](08_OPEN_DESIGN_RESTYLE.md)：Open Design 官方落地页风格改造全过程记录。
 
 ## 命令速查
 
@@ -62,4 +67,5 @@ npm run preview
 - Word 导入脚本：`scripts/import-docx.mjs`
 - 内容校验脚本：`scripts/validate-content.mjs`
 - 资源生成脚本：`scripts/generate-assets.mjs`
+- Open Design 资产：`public/assets/open-design/`
 - GitHub Pages workflow：`.github/workflows/deploy.yml`

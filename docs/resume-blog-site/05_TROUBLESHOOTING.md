@@ -86,3 +86,64 @@ npm run preview
 ```powershell
 Remove-Item -Recurse -Force .astro
 ```
+
+## Open Design 图片没有显示
+
+症状：首页拼贴图缺失或控制台出现 404。
+检查：
+
+```powershell
+Get-ChildItem public/assets/open-design
+```
+
+必须至少存在：
+
+```text
+hero.png
+about.png
+capabilities.png
+cta.png
+testimonial.png
+work-1.png
+work-2.png
+lab-1.png
+lab-2.png
+lab-3.png
+lab-4.png
+lab-5.png
+method-1.png
+method-2.png
+method-3.png
+method-4.png
+```
+
+修复：从 Open Design 官方示例资产目录重新复制：
+
+```text
+E:\00000AAAAA\000AAACodexW\Stock\Open Design\resources\open-design\plugins\_official\examples\open-design-landing\assets
+```
+
+## 首页出现横向滚动
+
+症状：移动端页面可左右拖动，或 `scrollWidth > clientWidth`。
+常见原因：
+
+- ticker/marquee 内容撑开文档宽度。
+- hero 注释或长 URL 没有被裁剪。
+- 新增卡片文案太长且没有换行。
+
+检查命令：
+
+```js
+document.documentElement.scrollWidth > document.documentElement.clientWidth
+```
+
+本次修复点：
+
+- `html`、`body`、`.shell` 使用横向裁剪边界。
+- `.wire-row` 和 `.marquee-track` 被限制在 ticker 容器内。
+
+## 搜索按钮在小屏消失
+
+这是预期行为。
+Open Design 风格下，`880px` 以下会隐藏桌面 nav links 和 nav CTA，以避免挤压 topbar 和品牌区。博客、简历和主要导航仍可通过页面链接访问。

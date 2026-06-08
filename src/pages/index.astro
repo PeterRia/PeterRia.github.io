@@ -1,23 +1,528 @@
 ---
 import { getCollection } from "astro:content";
-import FeaturedWriting from "@components/FeaturedWriting.astro";
-import FocusAreas from "@components/FocusAreas.astro";
-import Hero from "@components/Hero.astro";
-import SkillMatrix from "@components/SkillMatrix.astro";
-import Timeline from "@components/Timeline.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { profile } from "@data/profile";
+import { focusAreas, metrics, profile, skills, timeline } from "@data/profile";
 
 const posts = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 3);
+  .slice(0, 2);
+
+const asset = (name: string) => `/assets/open-design/${name}.png`;
+const copy = profile.zh;
+
+const wireCities = [
+  ["31.23°N", "Shanghai"],
+  ["39.90°N", "Beijing"],
+  ["22.54°N", "Shenzhen"],
+  ["30.57°N", "Chengdu"],
+  ["35.68°N", "Tokyo"],
+  ["1.35°N", "Singapore"],
+  ["51.51°N", "London"],
+  ["40.71°N", "New York"]
+];
+
+const wireTopics = [
+  ["Resume", "primary"],
+  ["Word import", "pipeline"],
+  ["MDX", "writing"],
+  ["Actions", "deploy"],
+  ["GitHub Pages", "hosting"],
+  ["Project Docs", "handoff"],
+  ["Bilingual", "zh/en"],
+  ["Static", "fast"]
+];
+
+const labs = [
+  {
+    badge: "CV",
+    img: "lab-1",
+    title: "Resume Narrative",
+    text: "把经历、项目、能力和可验证成果编排成可阅读、可打印、可长期维护的职业叙事。"
+  },
+  {
+    badge: "Docs",
+    img: "lab-2",
+    title: "Word-to-Web",
+    text: "后续可以从 Word 图文文档导入内容，再由脚本转为 MDX 并进入同一套发布流程。"
+  },
+  {
+    badge: "Build",
+    img: "lab-3",
+    title: "Publishing Loop",
+    text: "GitHub Actions 接管安装、导入、构建与 Pages 发布，让更新路径保持简单。"
+  },
+  {
+    badge: "Blog",
+    img: "lab-4",
+    title: "Writing Archive",
+    text: "博客作为辅线，记录自动化、静态发布、个人知识系统和项目交付过程。"
+  },
+  {
+    badge: "Ops",
+    img: "lab-5",
+    title: "Handoff Pack",
+    text: "所有部署命令、验证结果、维护方式和故障处理都沉淀到项目文档包。"
+  }
+];
+
+const method = [
+  {
+    img: "method-1",
+    title: "Brief",
+    text: "从品牌简述和简历内容出发，锁定页面主线、语气、视觉参照与可维护边界。"
+  },
+  {
+    img: "method-2",
+    title: "Compose",
+    text: "用 Astro、MDX 与静态资产生成页面，让简历、博客和图像拥有同一个编辑系统。"
+  },
+  {
+    img: "method-3",
+    title: "Verify",
+    text: "本地检查构建、内容校验、响应式页面和关键交互，再提交到 GitHub。"
+  },
+  {
+    img: "method-4",
+    title: "Publish",
+    text: "推送 main 后由 GitHub Actions 自动部署到 username.github.io。"
+  }
+];
+
+const capabilityCards = [
+  {
+    tag: "Resume",
+    title: "简历优先",
+    text: focusAreas.zh[0].description
+  },
+  {
+    tag: "Import",
+    title: "图文导入",
+    text: focusAreas.zh[1].description
+  },
+  {
+    tag: "Deploy",
+    title: "自动发布",
+    text: focusAreas.zh[2].description
+  },
+  {
+    tag: "Docs",
+    title: "过程归档",
+    text: "使用 project-doc-packager 记录制作、验证、部署、维护与排障细节。"
+  }
+];
 ---
 
-<BaseLayout title={`${profile.zh.name} | ${profile.zh.role}`} description={profile.zh.summary}>
-  <Hero />
-  <FocusAreas />
-  <Timeline />
-  <SkillMatrix />
-  <FeaturedWriting posts={posts} />
+<BaseLayout title={`${copy.name} | Open Design Resume`} description={copy.summary}>
+  <section class="hero" id="top" data-od-id="hero">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">I.</span>
+        <span class="meta-grp">
+          <span>Resume / Cover Plate</span>
+          <span class="dot-mark">•</span>
+          <span>PeterRia / Volume 01</span>
+        </span>
+        <span>001 / 008</span>
+      </div>
+    </div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="label" data-reveal>Resume-first personal studio <span class="ix">· Nº 01</span></span>
+        <h1 class="display" data-reveal>
+          Building a <em>resume</em> with systems, <em>writing,</em> and <em>proof</em><span class="dot">.</span>
+        </h1>
+        <p class="lead" data-reveal>{copy.summary}</p>
+        <div class="hero-actions" data-reveal>
+          <a class="btn btn-primary" href="/resume/zh/">
+            {copy.resumeLabel}
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
+            </span>
+          </a>
+          <a class="btn btn-ghost" href="/blog/">
+            {copy.blogLabel}
+            <span class="arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9 12h6M12 9v6" /></svg>
+            </span>
+          </a>
+        </div>
+        <div class="hero-stats" data-reveal>
+          {metrics.zh.map((metric, index) => (
+            <div class="stat">
+              <span class:list={["ring", index === 0 && "solid", index === 2 && "coral"]}>{metric.value}</span>
+              <span class="stat-label"><b>{metric.label}</b>verified</span>
+            </div>
+          ))}
+        </div>
+        <div class="hero-foot" data-reveal>
+          <span class="meta">↳ npm run check · GitHub Actions · Pages</span>
+          <span class="coord">{copy.location}</span>
+        </div>
+      </div>
+
+      <div class="hero-art" data-reveal="scale">
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <span class="annot annot-tl coord">FIG. 01 / PR-26</span>
+        <span class="annot annot-tr">Plate Nº 08</span>
+        <span class="annot annot-bl coord">ZH · EN</span>
+        <span class="annot annot-br">Composed in <span class="coral-text">Open Design</span></span>
+        <img src={asset("hero")} alt="" loading="eager" />
+        <div class="index" aria-hidden="true">
+          <span><span class="n">01</span>Resume</span>
+          <span class="on"><span class="n">02</span>Systems</span>
+          <span><span class="n">03</span>Writing</span>
+          <span><span class="n">04</span>Publish</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wire" aria-label="Resume publishing signals">
+    <div class="container wire-inner">
+      <div class="wire-left">
+        <span class="wire-mark" aria-hidden="true"><span class="wire-pulse"></span></span>
+        <span class="wire-title">
+          <b>From the field</b>
+          <span>Resume · Blog · Automation</span>
+        </span>
+      </div>
+      <div class="wire-rows">
+        <div class="wire-row">
+          <div class="marquee-track" aria-hidden="true">
+            {[...wireCities, ...wireCities].map(([coord, city]) => (
+              <span class="wire-item">
+                <span class="wire-dot">·</span>
+                <span class="wire-coord">{coord}</span>
+                <span class="wire-name">{city}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+        <div class="wire-row reverse">
+          <div class="marquee-track" aria-hidden="true">
+            {[...wireTopics, ...wireTopics].map(([topic, role]) => (
+              <span class="wire-item is-link">
+                <span class="wire-dot">·</span>
+                <span class="wire-handle">{topic}</span>
+                <span class="wire-role">{role}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="resume" data-od-id="about">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">II.</span>
+        <span class="meta-grp">
+          <span>About / Resume Statement</span>
+          <span class="dot-mark">•</span>
+          <span>Career narrative</span>
+        </span>
+        <span>002 / 008</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy" data-reveal>
+          <span class="label">About the profile <span class="ix">· Nº 02</span></span>
+          <h2 class="display">A personal site that treats a <em>resume</em> as a living <em>system</em><span class="dot">.</span></h2>
+          <p class="lead">
+            简历是主入口，博客是长期注脚。页面把职业信息、项目证据、技术能力、文档流程和发布流水线组织成一个可持续维护的作品面。
+          </p>
+          <a class="btn btn-ghost" href="/resume/zh/">
+            Open resume
+            <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg></span>
+          </a>
+          <div class="footer-row">
+            <span class="mark">P</span>
+            <span>Resume · Automation · Writing · Repeat</span>
+            <span class="stamp">
+              <span>GitHub Pages</span>
+              <span>Est. MMXXVI</span>
+            </span>
+          </div>
+        </div>
+        <div class="about-art" data-reveal="right">
+          <img src={asset("about")} alt="" />
+          <div class="about-side-note">
+            <b></b>
+            From Word files<br />to MDX routes,<br />the system keeps<br />future updates<br />deliberate.
+          </div>
+          <div class="about-caption">
+            <b>Studies in resume · content · publication.</b>
+            (PeterRia, MMXXVI)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="capabilities" id="capabilities" data-od-id="capabilities">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">III.</span>
+        <span class="meta-grp">
+          <span>Capabilities · Resume · Systems</span>
+          <span class="dot-mark">•</span>
+          <span>4 surfaces / 1 loop</span>
+        </span>
+        <span>003 / 008</span>
+      </div>
+      <div class="capabilities-grid">
+        <div class="capabilities-art" data-reveal="left">
+          <span class="corner tl"></span>
+          <span class="corner br"></span>
+          <img src={asset("capabilities")} alt="" />
+          <div class="ribbon"><b>OPEN DESIGN</b> · RESUME MATRIX · PR/26</div>
+        </div>
+        <div class="capabilities-copy" data-reveal>
+          <span class="label">Capabilities <span class="ix">· Nº 03</span></span>
+          <h2 class="display">A resume surface with <em>automation</em> under the paper<span class="dot">.</span></h2>
+          <p class="lead">设计语言来自 Open Design，工程结构仍保持简单：Astro、MDX、静态资源、GitHub Actions。</p>
+          <div class="cards">
+            {capabilityCards.map((item, index) => (
+              <div class="card" data-reveal>
+                <div class="num">
+                  {(index + 1).toString().padStart(2, "0")}
+                  <span class="tag">{item.tag}</span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="labs" id="labs" data-od-id="labs">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">IV.</span>
+        <span class="meta-grp">
+          <span>Labs / Maintenance Catalog</span>
+          <span class="dot-mark">•</span>
+          <span>05 active surfaces</span>
+        </span>
+        <span>004 / 008</span>
+      </div>
+      <div class="labs-head">
+        <div data-reveal>
+          <span class="label">Labs <span class="ix">· Nº 04</span></span>
+          <h2 class="display">A living archive of <em>resume</em> maintenance, writing, and deployment<span class="dot">.</span></h2>
+        </div>
+        <div class="pills" data-reveal="right">
+          <span class="pill active">All<span class="count">05</span></span>
+          <span class="pill">Resume<span class="count">01</span></span>
+          <span class="pill">Blog<span class="count">02</span></span>
+          <span class="pill">Ops<span class="count">02</span></span>
+        </div>
+      </div>
+      <div class="labs-meta">
+        <span class="ring">05</span>
+        <div class="meta-text">
+          <b>Ongoing modules</b>
+          maintained as files<br />reviewed by build checks<br />published by Actions
+        </div>
+      </div>
+      <div class="labs-grid">
+        {labs.map((item, index) => (
+          <article class="lab" data-reveal>
+            <div class="lab-img">
+              <span class="badge">{item.badge}</span>
+              <img src={asset(item.img)} alt="" />
+            </div>
+            <div class="num-row"><span>Nº {(index + 1).toString().padStart(2, "0")}</span><span>2026</span></div>
+            <h4>{item.title}</h4>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="labs-foot">
+        <div class="progress" aria-hidden="true">
+          <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span>
+        </div>
+        <span class="meta">05 / 05 MODULES · <a class="library-link" href="/blog/">VIEW WRITING →</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="method" id="method" data-od-id="method">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">V.</span>
+        <span class="meta-grp">
+          <span>Method / Publishing Loop</span>
+          <span class="dot-mark">•</span>
+          <span>04 stages</span>
+        </span>
+        <span>005 / 008</span>
+      </div>
+      <div class="method-head">
+        <div data-reveal>
+          <span class="label">Method <span class="ix">· Nº 05</span></span>
+          <h2 class="display">From <em>document</em> to deployed page<span class="dot">.</span></h2>
+        </div>
+        <div class="right" data-reveal="right">
+          <span class="plus">+</span>
+          <p>Every update remains file-based and auditable: content, assets, build output, deployment log, documentation.</p>
+        </div>
+      </div>
+      <div class="method-grid">
+        {method.map((item, index) => (
+          <article class="method-step" data-reveal>
+            <div class="num">{(index + 1).toString().padStart(2, "0")}</div>
+            <h4>{item.title} {index < method.length - 1 && <span class="arrow-r">→</span>}</h4>
+            <p>{item.text}</p>
+            <div class="img"><img src={asset(item.img)} alt="" /></div>
+          </article>
+        ))}
+      </div>
+      <div class="method-foot">
+        <div class="left">
+          <span class="ring"></span>
+          <span>Files inform everything. Actions make it real.</span>
+        </div>
+        <div class="right"><a class="method-repo-link" href="https://github.com/PeterRia/PeterRia.github.io">github.com/PeterRia/PeterRia.github.io</a> · GitHub Pages</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" id="work" data-od-id="work">
+    <div class="work">
+      <div class="work-rule">
+        <span class="roman">VI.</span>
+        <span class="work-rule-mid">
+          <span>Selected Work · 2026 Catalog</span>
+          <span class="coral-text">•</span>
+          <span>Edited by PeterRia</span>
+        </span>
+        <span>006 / 008</span>
+      </div>
+      <div class="work-grid">
+        <div class="work-copy" data-reveal>
+          <span class="label">Selected work</span>
+          <h2>Artifacts that make a <em>resume</em> readable and <em>maintainable</em><span class="dot">.</span></h2>
+          <a class="work-link" href="/resume/zh/">View full resume</a>
+        </div>
+        <a class="work-card" data-reveal href="/resume/zh/">
+          <div class="label-row">
+            <span class="small-label">Primary surface</span>
+            <span class="index">01 / 02</span>
+          </div>
+          <h3>Resume System</h3>
+          <p>{timeline.zh[0].details[0]} {timeline.zh[0].details[1]}</p>
+          <div class="img"><img src={asset("work-1")} alt="" /></div>
+          <div class="meta-row"><span class="year">2026 · CV</span><span>DEFAULT</span></div>
+        </a>
+        <a class="work-card alt" data-reveal href="/blog/">
+          <div class="label-row">
+            <span class="small-label">Companion archive</span>
+            <span class="index">02 / 02</span>
+          </div>
+          <h3>Writing Notes</h3>
+          <p>博客用于记录简历系统、自动化发布、内容导入和项目交付的复盘。</p>
+          <div class="img"><img src={asset("work-2")} alt="" /></div>
+          <div class="meta-row"><span class="year">2026 · BLOG</span><span>SECONDARY</span></div>
+        </a>
+      </div>
+      <div class="work-arrows" aria-hidden="true">
+        <span class="nav-btn"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6" /></svg></span>
+        <span class="nav-btn active"><svg viewBox="0 0 24 24"><path d="M10 6l6 6-6 6" /></svg></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial" data-od-id="testimonial">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">VII.</span>
+        <span class="meta-grp">
+          <span>Proof / Writing Archive</span>
+          <span class="dot-mark">•</span>
+          <span>Recent notes</span>
+        </span>
+        <span>007 / 008</span>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-copy" data-reveal>
+          <span class="label">Writing <span class="ix">· Nº 06</span></span>
+          <h2>“The blog stays secondary, but every note should leave a <em>trace</em> for the next update.”</h2>
+          <div class="author">
+            <span class="avatar">p</span>
+            <p>PeterRia<br /><span>Resume · Automation · Static Publishing</span></p>
+          </div>
+          <div class="divider"></div>
+          <p class="partners-text">Recent posts are rendered from MDX and deployed with the same pipeline.</p>
+          <div class="partners article-links">
+            {posts.map((post) => (
+              <a class="partner" data-reveal href={`/blog/${post.slug}/`}>
+                <span>{post.data.title}</span>
+                <small>{post.data.lang.toUpperCase()} · {post.data.pubDate.getFullYear()}</small>
+              </a>
+            ))}
+            {skills.zh.map((group) => (
+              <a class="partner" data-reveal href="/resume/zh/">
+                <span>{group.group}</span>
+                <small>{group.items.map((item) => item.name).join(" · ")}</small>
+              </a>
+            ))}
+          </div>
+          <a class="read-more" href="/blog/">Read the archive</a>
+        </div>
+        <div class="testimonial-art" data-reveal="right">
+          <img src={asset("testimonial")} alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact" data-od-id="cta">
+    <div class="container">
+      <div class="sec-rule">
+        <span class="roman">VIII.</span>
+        <span class="meta-grp">
+          <span>Contact / Conversation</span>
+          <span class="dot-mark">•</span>
+          <span>Two paths to start</span>
+        </span>
+        <span>008 / 008</span>
+      </div>
+      <div class="cta-grid">
+        <div data-reveal>
+          <span class="label">Start a conversation <span class="ix">· Nº 07</span></span>
+          <h2 class="display">Let the <em>resume</em> stay alive and <em>publishable</em><span class="dot">.</span></h2>
+          <p class="lead">邮件、GitHub、Word 文档、MDX 内容都能进入同一条维护路线。</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href={`mailto:${copy.email}`}>
+              {copy.email}
+              <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg></span>
+            </a>
+            <a class="email-pill" href={copy.github}>
+              GitHub
+              <span class="arrow-circle">→</span>
+            </a>
+          </div>
+          <div class="cta-foot">
+            <span class="stamp">● Live</span>
+            <span>Astro / GitHub Pages</span>
+            <span class="push-right">{copy.location}</span>
+          </div>
+        </div>
+        <div class="cta-art" data-reveal="right">
+          <img src={asset("cta")} alt="" />
+          <div class="index">Nº 08</div>
+          <div class="ribbon">PETER RIA · FIN.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -163,3 +163,45 @@ public/assets/og-cover.png
 
 如果后续换成真实照片或品牌图，保持文件名不变即可。
 
+## Open Design 风格维护
+
+当前首页使用 Open Design 官方 `open-design-landing` 示例的 Atelier Zero 视觉语言，资源目录：
+
+```text
+public/assets/open-design/
+```
+
+首页 16 个拼贴图文件：
+
+```text
+hero.png
+about.png
+capabilities.png
+lab-1.png
+lab-2.png
+lab-3.png
+lab-4.png
+lab-5.png
+method-1.png
+method-2.png
+method-3.png
+method-4.png
+work-1.png
+work-2.png
+testimonial.png
+cta.png
+```
+
+维护原则：
+
+- 简历仍是主叙事，博客只作为 Writing Archive 和辅助内容。
+- 替换图片时保持文件名不变，避免改动 Astro 页面。
+- 颜色、字体和动效集中在 `src/styles/global.css`。
+- topbar 和 sticky nav 在 `src/components/Header.astro`。
+- 首页章节内容在 `src/pages/index.astro`。
+
+每次替换视觉资源后运行：
+
+```powershell
+npm run check
+```
